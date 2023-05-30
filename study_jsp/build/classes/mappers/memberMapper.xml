@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberMapper">
+	<insert id="insertMember" parameterType="mvo">
+		insert into member(id, password, name, email, phone)
+		values(#{id}, #{password}, #{name}, #{email}, #{phone})
+	</insert>
+	
+	<select id="selectMember" parameterType="mvo" resultType="mvo">
+		<choose>
+			<when test="#{password eq null}">
+				select * from member where id = #{id}
+			</when>
+			<when test="#{password ne null}">
+				select * from member where id = #{id} and password = #{password}
+			</when>
+		</choose>
+	</select>
+	
+	<update id="updateMember" parameterType="mvo">
+		update member set
+			password = #{password},
+			name = #{name},
+			email = #{email},
+			phone = #{phone}
+		where id = #{id}
+	</update>
+	
+	<select id="selectAllMember" resultType="mvo">
+		select * from member order by auth desc, id asc
+	</select >
+</mapper>

@@ -32,4 +32,9 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> selectAllMember() {
 		return mdao.selectAllMember();
 	}
+
+	@Override
+	public int deleteMember(MemberVO mvo) {
+		return mdao.deleteMember(mvo);
+	}
 }

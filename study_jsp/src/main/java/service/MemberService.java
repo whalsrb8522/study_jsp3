@@ -13,5 +13,7 @@ public interface MemberService {
 	int updateMember(MemberVO mvo);
 
 	List<MemberVO> selectAllMember();
+
+	int deleteMember(MemberVO mvo);
 	
 }

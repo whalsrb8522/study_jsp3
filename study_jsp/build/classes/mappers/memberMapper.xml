@@ -30,4 +30,8 @@
 	<select id="selectAllMember" resultType="mvo">
 		select * from member order by auth desc, id asc
 	</select >
+	
+	<delete id="deleteMember" parameterType="mvo">
+		delete from member where id = #{id}
+	</delete>
 </mapper>

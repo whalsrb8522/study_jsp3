@@ -66,7 +66,7 @@ public class MemberController extends HttpServlet {
 				ses.setMaxInactiveInterval(10 * 60);
 			}
 			
-			destPage = "/index.jsp";
+			destPage = "/";
 			break;
 		case "signUp_s1":
 			destPage = "/member/signup.jsp";
@@ -83,13 +83,13 @@ public class MemberController extends HttpServlet {
 			
 			System.out.println(">>> MemberController > insertMember() : " + (isOk > 0 ? "success" : "fail"));
 			
-			destPage = "/index.jsp";
+			destPage = "/";
 			break;
 		case "signOut":
 			ses = req.getSession();
 			ses.invalidate();
 			
-			destPage = "/index.jsp";
+			destPage = "/";
 			break;
 		case "modify_s1":
 			id = req.getParameter("id");
@@ -123,9 +123,9 @@ public class MemberController extends HttpServlet {
 				
 				ses = req.getSession();
 				ses.setAttribute("ses", resultMvo);
-				ses.setMaxInactiveInterval(10 * 60);
+				ses.setMaxInactiveInterval(100 * 60);
 				
-				destPage = "/index.jsp";
+				destPage = "/";
 			}
 			break;
 		case "admin":
@@ -138,6 +138,18 @@ public class MemberController extends HttpServlet {
 			break;
 		case "withdrawal":
 			id = req.getParameter("id");
+			mvo = new MemberVO(id);
+			
+			isOk = msvc.deleteMember(mvo);
+			
+			if (isOk > 0) {
+				ses = req.getSession();
+				ses.invalidate();
+				req.setAttribute("msg", "회원탈퇴가 완료되었습니다.");
+			} 
+			
+			destPage = "/";
+			
 			break;
 		}
 		

@@ -49,4 +49,13 @@ public class MemberDAOImple implements MemberDAO {
 		listMvo = sql.selectList(NS + "selectAllMember");
 		return listMvo;
 	}
+
+	@Override
+	public int deleteMember(MemberVO mvo) {
+		isOk = sql.delete(NS + "deleteMember", mvo);
+		if (isOk > 0) {
+			sql.commit();
+		}
+		return isOk;
+	}
 }

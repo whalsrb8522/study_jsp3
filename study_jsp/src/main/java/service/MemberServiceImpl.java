@@ -4,13 +4,13 @@ import java.util.List;
 
 import domain.MemberVO;
 import repository.MemberDAO;
-import repository.MemberDAOImple;
+import repository.MemberDAOImpl;
 
 public class MemberServiceImpl implements MemberService {
 	MemberDAO mdao;
 	
 	public MemberServiceImpl() {
-		mdao = new MemberDAOImple();
+		mdao = new MemberDAOImpl();
 	}
 
 	@Override

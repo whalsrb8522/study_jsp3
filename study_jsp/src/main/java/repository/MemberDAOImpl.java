@@ -8,14 +8,14 @@ import org.apache.ibatis.session.SqlSession;
 import domain.MemberVO;
 import orm.DatabaseBuilder;
 
-public class MemberDAOImple implements MemberDAO {
+public class MemberDAOImpl implements MemberDAO {
 	private SqlSession sql;
 	private String NS = "MemberMapper.";
 	
 	private int isOk;
 	private MemberVO mvo;
 	
-	public MemberDAOImple() {
+	public MemberDAOImpl() {
 		sql = DatabaseBuilder.getFactory().openSession();
 	}
 	

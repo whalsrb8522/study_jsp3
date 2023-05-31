@@ -10,10 +10,11 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 <body>
 	<div id="container">
-		<form id="section" class="border-gray text-center" action="/brd/write_s2" method="post">
+		<form id="section" class="border-gray text-center" action="/brd/write_s2" method="post" enctype="multipart/form-data">
 			<input class="border-gray input-box" type="text" name="title" placeholder="제목"> <br>
 			<input class="border-gray bg-gray input-box" type="text" name="writer" placeholder="작성자" value="${ses.id }" readonly="readonly"> <br>
 			<textarea class="border-gray textarea" name="content" placeholder="내용을 입력해주세요." rows="20"></textarea>
+			<input class="border-gray input-box" type="file" id="file" name="image" accept="image/png, image/jpg, image/jpeg, image/bmp, image/gif">
 			<input class="border-gray button-blue" type="submit" value="작성완료">
 			<a href="javascript:history.back()">뒤로가기</a>
 		</form>

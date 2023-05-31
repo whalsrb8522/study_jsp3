@@ -16,6 +16,14 @@ create table board (
 	writer varchar(100) not null,
 	regdate datetime default now(),
 	content text,
-	readcount int
+	readcount int default 0,
+	image text
 );
 
+create table comment (
+	cno int not null primary key auto_increment,
+	bno int not null default 0,
+	writer varchar(100) not null default '익명',
+	content text not null,
+	regdate datetime default now()
+)

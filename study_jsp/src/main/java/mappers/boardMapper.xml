@@ -7,16 +7,66 @@
 	</select>
 	
 	<insert id="insertList" parameterType="bvo">
-		insert into board(title, writer, content) 
-		values(#{title}, #{writer}, #{content})
+		insert into board(title, writer, content, image) 
+		values(#{title}, #{writer}, #{content}, #{image})
 	</insert>
 	
-	<select id="selectList" parameterType="bvo" resultType="bvo">
+	<select id="selectDetail" parameterType="bvo" resultType="bvo">
 		select * from board where bno = #{bno}
 	</select>
 	
-	<update id="updateList" parameterType="bvo">
-		update board set title = #{title}, content = #{content}
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where bno = #{bno} 
+	</delete>
+	
+	<update id="updateReadCount" parameterType="bvo">
+		update board set readcount = readcount + 1
 		where bno = #{bno}
 	</update>
+	
+	<update id="updateList" parameterType="bvo">
+		update board set title = #{title}, content = #{content}, image = #{image} 
+		where bno = #{bno}
+	</update>
+	
+  	<select id="selectAllCount" parameterType="pgvo" resultType="int">
+ 		select count(bno) from board where bno > 0
+  			<include refid="search"></include>
+  	</select>
+  	
+  	<select id="selectPageList" parameterType="pgvo" resultType="bvo">
+  		select * from (
+  			select bno from board where bno > 0
+  			<include refid="search"></include>
+  			order by bno desc
+  			limit #{pageStart}, #{qty}
+  		) a left join board b
+  		on a.bno = b.bno
+  	</select>
+  	
+	<select id="selectFileName" parameterType="int" resultType="String">
+		select image from board where bno = #{bno}
+	</select>
+  	
+  	<sql id="search">
+  		<if test="type != null">
+  			<trim prefix="and (" suffix=")" prefixOverrides="or">
+  				<foreach collection="typeToArray">
+  					<trim prefix="or">
+  						<choose>
+  							<when test="type == 't'.toString()">
+  								title like concat('%', #{keyword}, '%')
+  							</when>
+  							<when test="type == 'w'.toString()">
+  								writer like concat('%', #{keyword}, '%')
+  							</when>
+  							<when test="type == 'c'.toString()">
+  								content like concat('%', #{keyword}, '%')
+  							</when>
+  						</choose>
+  					</trim>
+  				</foreach>
+  			</trim>
+  		</if>	
+  	</sql>
 </mapper>
